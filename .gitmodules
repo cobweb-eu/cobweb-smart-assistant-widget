@@ -1,0 +1,3 @@
+[submodule "N3.js"]
+	path = N3.js
+	url = https://github.com/RubenVerborgh/N3.js

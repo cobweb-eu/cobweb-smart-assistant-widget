@@ -1,0 +1,52 @@
+<html>
+    <head>
+    <style>
+        .cobweb-assistant { border : 1px solid black; }
+
+        .error { background-color: red; }
+
+        .narrower-group {
+            padding-left: 2em;
+            border: 1px solid white;
+        }
+
+        .collection-bits {
+            margin-left: 1em;
+            border: 1px solid black;
+            height: 10em;
+            overflow-y: scroll;
+        }
+
+        .requirement-body {
+            padding-left: 1em;
+            border: 1px solid red;
+        }
+    </style>
+    </head>
+<body>
+    <div id='control'>Control goes in here.</div>
+    <div id='skos'></div>
+    <hr />
+    <div id='logging'>Logging output.</div>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+    <!-- Turtle Parser -->
+    <script src="n3-browser.min.js"></script>
+    <!-- JSONLD Parser -->
+    <script src="http://cdn.jsdelivr.net/g/es6-promise@1.0.0"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jsonld/0.3.15/jsonld.js"></script>
+    <!-- -->
+    <script src="rdf-constants.js"></script>
+    <script src="rdf-cobweb.js"></script>
+    <script src="rdf-cobweb-skos.js"></script>
+    <script>
+    var log = $('#logging');
+    var callback = function(structure) {
+        log.text( JSON.stringify(structure, null, 2) );
+    };
+    COBWEB.smartAssistant('#control', callback);
+    </script>
+</body>
+</html>
