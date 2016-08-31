@@ -1,0 +1,1 @@
+# cobweb-smart-assistant-widget
