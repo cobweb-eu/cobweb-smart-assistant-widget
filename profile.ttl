@@ -1,79 +1,85 @@
-        @prefix qb: <http://purl.org/linked-data/cube#> .
-        @prefix so: <http://geosemweb.net/sdwgeo#> .
-        @prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
-        @prefix owl: <http://www.w3.org/2002/07/owl#> .
-        @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-        @prefix xml: <http://www.w3.org/XML/1998/namespace> .
-        @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-        @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-        @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-        @prefix stqb: <http://resources.opengeospatial.org/def/ontology/stqb/> .
-        @prefix prof: <http://resources.opengeospatial.org/def/ontology/prof/> .
-        @prefix time: <http://resources.opengeospatial.org/def/ontology/time/> .
-        @prefix dcterms: <http://purl.org/dc/terms/> .
-        @prefix om: <https://www.w3.org/ns/sosa#>  .
+@prefix qb: <http://purl.org/linked-data/cube#> .
+@prefix so: <http://geosemweb.net/sdwgeo#> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix stqb: <http://resources.opengeospatial.org/def/ontology/stqb/> .
+@prefix prof: <http://resources.opengeospatial.org/def/ontology/prof/> .
+@prefix time: <http://resources.opengeospatial.org/def/ontology/time/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix om: <https://www.w3.org/ns/sosa#>  .
 
-        @prefix gbif: <http://prophet.ucd.ie/ontology/cobweb/skos/gbif#> .
+@prefix gbif: <http://prophet.ucd.ie/ontology/cobweb/skos/gbif#> .
 
-        @base <http://example.com/profile> .
+@base <http://prophet.ucd.ie/ontology/cobweb/profiles/prof#> .
 
-        @prefix : <http://prophet.ucd.ie/ontology/cobweb/profiles/prof#> .
+@prefix : <http://prophet.ucd.ie/ontology/cobweb/profiles/prof#> .
 
-        :cobweb_invasive a prof:Profile ;
-          rdfs:label "COBWEB Invasive Species Profile (GBIF)"@en ;
-          rdfs:comment "Defines the data interoperability requirements for specific fields to allow discovery and combination of Japanese Knotweed field surveys in the context of COBWEB and GBIF"@en ;
-          rdfs:subClassOf :cobweb, :gbif ;
-          prof:dimBinding :dim_invasive ;
-        .
+:cobweb_invasive a prof:Profile ;
+  rdfs:label "COBWEB Invasive Species Profile (GBIF)"@en ;
+  rdfs:comment "Defines the data interoperability requirements for specific fields to allow discovery and combination of Japanese Knotweed field surveys in the context of COBWEB and GBIF"@en ;
+  rdfs:subClassOf :cobweb, :gbif ;
+  prof:dimBinding :dim_invasive ;
+.
 
-        :cobweb a prof:Profile ;
-          rdfs:label "COBWEB Generic Profile"@en ;
-          rdfs:comment "A general interoperability profile for all COBWEB projects, encodes common standards relevant to all COBWEB projects"@en ;
-          rdfs:isDefinedBy <http://somewhere/some_cobweb_policy_document> ;
-        .
+:cobweb a prof:Profile ;
+  rdfs:label "COBWEB Generic Profile"@en ;
+  rdfs:comment "A general interoperability profile for all COBWEB projects, encodes common standards relevant to all COBWEB projects"@en ;
+  rdfs:isDefinedBy <http://somewhere/some_cobweb_policy_document> ;
+.
 
-        :gbif a prof:Profile ;
-          rdfs:label "GBIF common data interoperability requirements"@en ;
-          rdfs:comment "A general interoperability profile for GBIF"@en ;
-          rdfs:isDefinedBy <http://somewhere/some_GBIF_policy_document> ;
+:gbif a prof:Profile ;
+  rdfs:label "GBIF common data interoperability requirements"@en ;
+  rdfs:comment "A general interoperability profile for GBIF"@en ;
+  rdfs:isDefinedBy <http://somewhere/some_GBIF_policy_document> ;
 
-          prof:dimBinding :gbif_taxon ;
-        .
+  prof:dimBinding :gbif_taxon ;
+.
 
-        :gbif_taxon a prof:DimensionBinding ;
-        	rdfs:label "GBIF Species Code"@en ;
-        	rdfs:comment "Defines that a data set uses GBIF taxon codes as a dimension (i.e. are mandatory and can be used to locate sub sets of data)"@en ;
-        	qb:concept gbif:SpeciesTaxon ;
+:gbif_taxon a prof:DimensionBinding ;
+    rdfs:label "GBIF Species Code"@en ;
+    rdfs:comment "Defines that a data set uses GBIF taxon codes as a dimension (i.e. are mandatory and can be used to locate sub sets of data)"@en ;
+    qb:concept gbif:SpeciesTaxon ;
+    
+    prof:specifiedBy :gbif ;
 
-            prof:collection <http://prophet.ucd.ie/ontology/cobweb/skos_gbif#Species> ;
-            prof:inverseCollectionProperty rdf:type ;
+    prof:collection <http://prophet.ucd.ie/ontology/cobweb/skos_gbif#Species> ;
+    prof:inverseCollectionProperty rdf:type ;
 
-            rdfs:range gbif:PhysicalEntity ;
-        .
+    rdfs:range gbif:PhysicalEntity ;
+.
 
-        :dim_invasive a prof:DimensionBinding ;
-          rdfs:label "GBIF Invasive Species Code"@en ;
-          rdfs:comment ""@en ;
-          qb:concept gbif:SpeciesTaxon ;
+:dim_invasive a prof:DimensionBinding ;
+  rdfs:label "GBIF Invasive Species Code"@en ;
+  rdfs:comment ""@en ;
+  qb:concept gbif:SpeciesTaxon ;
+  
+  prof:specifiedBy :cobweb_invasive ;
 
-          prof:overrides :gbif_taxon ;
-          rdfs:subPropertyOf :gbif_taxon ;
+  prof:overrides :gbif_taxon ;
+  rdfs:subPropertyOf :gbif_taxon ;
 
-          prof:collection <http://prophet.ucd.ie/ontology/cobweb/skos_gbif#Invasive_Plant_Species> ;
-          prof:inverseCollectionProperty rdf:type ;
+  prof:collection <http://prophet.ucd.ie/ontology/cobweb/skos_gbif#Invasive_Plant_Species> ;
+  prof:inverseCollectionProperty rdf:type ;
 
-          rdfs:range gbif:PhysicalEntity ;
-        .
+  rdfs:range gbif:PhysicalEntity ;
+.
 
-        :dbpedia a prof:Profile ;
-          rdfs:label "LOD Species Compatible Profile"@en;
-          prof:dimBinding :dim_dbpedia ;
-        .
+:dbpedia a prof:Profile ;
+  rdfs:label "LOD Species Compatible Profile"@en;
+  prof:dimBinding :dim_dbpedia ;
+.
 
-        :dim_dbpedia a prof:DimensionBinding ;
-          rdfs:label "LOD Species Code" ;
+:dim_dbpedia a prof:DimensionBinding ;
+  rdfs:label "LOD Species Code" ;
+  
+  prof:specifiedBy :dbpedia
 
-          prof:collection <http://dbpedia.org/resource/Category:Flora_of_Europe> ;
-          prof:inverseCollectionProperty <http://purl.org/dc/terms/subject> ;
-          rdfs:range <http://dbpedia.org/ontology/Plant> ;
-        .
+  prof:collection <http://dbpedia.org/resource/Category:Flora_of_Europe> ;
+  prof:inverseCollectionProperty <http://purl.org/dc/terms/subject> ;
+  rdfs:range <http://dbpedia.org/ontology/Plant> ;
+.

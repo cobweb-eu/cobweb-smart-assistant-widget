@@ -21,6 +21,18 @@
             padding-left: 1em;
             border: 1px solid red;
         }
+
+        .info {
+            margin-left: 1em;
+        }
+
+        .parents {
+            border: 1px solid grey;
+        }
+
+        .parents .parent {
+            padding-left: 1em;
+        }
     </style>
     </head>
 <body>
@@ -34,7 +46,7 @@
         crossorigin="anonymous"></script>
     <!-- Turtle Parser -->
     <script src="n3-browser.min.js"></script>
-    <!-- JSONLD Parser -->
+    <!-- JSONLD Parser >
     <script src="http://cdn.jsdelivr.net/g/es6-promise@1.0.0"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jsonld/0.3.15/jsonld.js"></script>
     <!-- -->
@@ -46,7 +58,8 @@
     var callback = function(structure) {
         log.text( JSON.stringify(structure, null, 2) );
     };
-    COBWEB.smartAssistant('#control', callback);
+    var url = 'http://prophet.ucd.ie/ontology/cobweb/profiles/prof#cobweb_invasive';
+    COBWEB.smartAssistant(url,'#control', callback);
     </script>
 </body>
 </html>

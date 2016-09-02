@@ -70,6 +70,8 @@ var COBWEB = function () {
             profile.url = match.subject;
             profile.requirements = [];
 
+            profile.parents = Util.getParentProfile(store, match.subject);
+
             profiles[profile.url] = profile;
             //console.log(match);
         }
@@ -78,16 +80,48 @@ var COBWEB = function () {
         for (var id in profiles) {
             var profile = profiles[id];
 
-            var span = $(document.createElement('div'));
-            span.addClass('profile');
-            span.html( profile.label );
+            var prof_div = Util.getElement('div');
+            var prof_label = Util.getElement('span', 'profile');
+            var prof_info = Util.getElement('span', 'info');
 
-            span.click( function() {
+            prof_label.html(profile.label);
+
+            prof_div.append(prof_label);
+
+            if( profile.parents.length > 0 || profile.requirements.length > 0)
+                prof_div.append(prof_info);
+
+            prof_label.click( function() {
                 var temp = profile;
                 return function() { analyse_profile( temp ); };
             }() );
 
-            control.profiles.append(span);
+            if( profile.parents.length > 0) {
+                var prof_parents = Util.getElement('div', 'parents');
+                prof_parents.hide();
+
+                prof_div.append(prof_parents);
+
+                prof_info.html('[Toggle Info]');
+                prof_parents.html('Inherits from');
+
+                prof_info.click( function() {
+                    var temp = prof_parents;
+                    return function() { temp.toggle() };
+                }() );
+
+                for(var i = 0; i < profile.parents.length; i++) {
+                    var parent = profile.parents[i];
+                    var div = Util.getElement('div', 'parent');
+                    div.html(parent);
+                    prof_parents.append(div);
+                }
+            }
+
+            control.profiles.append(prof_div);
+        }
+        if( profiles[graph] ) {
+            analyse_profile(profiles[graph]);
         }
     };
     var parse = function(data, graph, callback) {
@@ -162,7 +196,7 @@ var COBWEB = function () {
         var inputspan = Util.getElement('div', 'profile');
         var input = Util.getElement('input');
         var button = Util.getElement('button');
-        button.html('Load Profiles');
+        button.html('Load Profile(s)');
         inputspan.append(input);
         inputspan.append(button);
         button.click(function() {
@@ -255,13 +289,23 @@ var COBWEB = function () {
             }
         },
         callback : null,
-        smartAssistant : function (id, callback) {
+        smartAssistant : function (url, id, callback) {
+            var profile_url;
+            if( !callback) {
+                callback = id;
+                id = url;
+            } else {
+                profile_url = url;
+            }
+
             this.callback = callback;
             control.base = $(id);
 
             buildControl(callback);
 
-            var profile = 'http://prophet.ucd.ie/ontology/cobweb/profiles/prof';
+            var profile = 'http://prophet.ucd.ie/ontology/cobweb/profiles/prof#cobweb';
+            if( profile_url )
+                profile = profile_url;
             getTurtle( profile , analyse_profiles );
             // parse( $('#embedded-turtle').text(),
             //     url,

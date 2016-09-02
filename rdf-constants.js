@@ -15,19 +15,33 @@ DCT.subject = DCT('subject');
 var RDFS = append('http://www.w3.org/2000/01/rdf-schema#');
 RDFS.label = RDFS('label');
 RDFS.range = RDFS('range');
+RDFS.subClassOf = RDFS('subClassOf');
 
 var PROF = append('http://resources.opengeospatial.org/def/ontology/prof/');
 PROF.Profile = PROF('Profile');
 PROF.dimBinding = PROF('dimBinding');
-PROF.collection = PROF('collection');
+PROF.overrides = PROF('overrides');
+
 PROF.collectionProperty = PROF('collectionProperty');
 PROF.inverseCollectionProperty = PROF('inverseCollectionProperty');
+PROF.collection = PROF('collection');
+
+PROF.specifiedBy = PROF('specifiedBy');
 
 var DBO = append('http://dbpedia.org/ontology/');
 DBO.Plant = DBO('Plant');
 DBO.Moon = DBO('Moon');
 
 var Util = {
+        getParentProfile : function(store, profile) {
+            var parents = [];
+            var matches = store.find(profile, RDFS.subClassOf, null);
+            for(var i = 0; i < matches.length; i++) {
+                var label = Util.getLabel(store, matches[i].object);
+                parents.push( label );
+            }
+            return parents;
+        },
         extractDimension : function(store, dimension) {
             var label = Util.getLabel(store, dimension);
             var range = Util.getRange(store, dimension);
