@@ -20,23 +20,18 @@ var COBWEB = function () {
     var analyse_profile = function(profile) {
         //data.html(profile);
         data = profile;
-        profile.requirements = [];
         control.complete.show();
 
         control.requirements.html("Profile: " + profile.label + "");
         control.requirements.append( "<br />" );
 
-        var matches = store.find(profile.url, PROF.dimBinding, null);
-
-        if(matches.length == 0) {
+        if(profile.requirements.length == 0) {
             control.requirements.append("--Specifies no required properties--");
         }
 
-        for(var i = 0; i < matches.length; i++) {
-            var match = matches[i];
+        for(var i = 0; i < profile.requirements.length; i++) {
+            var details = profile.requirements[i];
 
-            var details = Util.extractDimension(store, match.object);
-            profile.requirements.push(details);
             console.log('Details', details);
             if(!details.collection)
                 continue;
@@ -71,6 +66,7 @@ var COBWEB = function () {
             profile.requirements = [];
 
             profile.parents = Util.getParentProfile(store, match.subject);
+            profile.requirements = Util.getProfileRequirements(store, match.subject);
 
             profiles[profile.url] = profile;
             //console.log(match);
@@ -82,14 +78,25 @@ var COBWEB = function () {
 
             var prof_div = Util.getElement('div');
             var prof_label = Util.getElement('span', 'profile');
+
             var prof_info = Util.getElement('span', 'info');
+            var prof_info_details = Util.getElement('div', 'info');
 
             prof_label.html(profile.label);
 
             prof_div.append(prof_label);
 
-            if( profile.parents.length > 0 || profile.requirements.length > 0)
+            if( profile.parents.length > 0 || profile.requirements.length > 0) {
+                prof_info.html('[Toggle Info]');
                 prof_div.append(prof_info);
+                prof_div.append(prof_info_details);
+                prof_info_details.hide();
+
+                prof_info.click( function() {
+                    var temp = prof_info_details;
+                    return function() { temp.toggle() };
+                }() );
+            }
 
             prof_label.click( function() {
                 var temp = profile;
@@ -98,23 +105,32 @@ var COBWEB = function () {
 
             if( profile.parents.length > 0) {
                 var prof_parents = Util.getElement('div', 'parents');
-                prof_parents.hide();
 
-                prof_div.append(prof_parents);
+                prof_info_details.append(prof_parents);
 
-                prof_info.html('[Toggle Info]');
-                prof_parents.html('Inherits from');
-
-                prof_info.click( function() {
-                    var temp = prof_parents;
-                    return function() { temp.toggle() };
-                }() );
+                prof_parents.html('Inherits from:');
 
                 for(var i = 0; i < profile.parents.length; i++) {
                     var parent = profile.parents[i];
                     var div = Util.getElement('div', 'parent');
                     div.html(parent);
                     prof_parents.append(div);
+                }
+            }
+
+            if( profile.requirements.length > 0 ) {
+                var prof_req = Util.getElement('div', 'requirements');
+
+                prof_info_details.append(prof_req);
+
+                prof_req.html("Required fields:");
+
+                for(var i = 0; i < profile.requirements.length; i++) {
+                    var requirement = profile.requirements[i];
+                    var div = Util.getElement('div', 'requirement');
+                    div.html(requirement.label);
+
+                    prof_req.append(div);
                 }
             }
 

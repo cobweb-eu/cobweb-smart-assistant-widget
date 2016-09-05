@@ -20,19 +20,29 @@ RDFS.subClassOf = RDFS('subClassOf');
 var PROF = append('http://resources.opengeospatial.org/def/ontology/prof/');
 PROF.Profile = PROF('Profile');
 PROF.dimBinding = PROF('dimBinding');
-PROF.overrides = PROF('overrides');
 
 PROF.collectionProperty = PROF('collectionProperty');
 PROF.inverseCollectionProperty = PROF('inverseCollectionProperty');
 PROF.collection = PROF('collection');
 
 PROF.specifiedBy = PROF('specifiedBy');
+PROF.overrides = PROF('overrides');
 
 var DBO = append('http://dbpedia.org/ontology/');
 DBO.Plant = DBO('Plant');
-DBO.Moon = DBO('Moon');
 
 var Util = {
+        getProfileRequirements : function(store, profile) {
+            var requirements = [];
+            var matches = store.find(profile, PROF.dimBinding, null);
+
+            for(var i = 0; i < matches.length; i++) {
+                var match = matches[i];
+                var details = Util.extractDimension(store, match.object);
+                requirements.push(details);
+            }
+            return requirements;
+        },
         getParentProfile : function(store, profile) {
             var parents = [];
             var matches = store.find(profile, RDFS.subClassOf, null);
@@ -51,6 +61,8 @@ var Util = {
             var collection = Util.getObject(store,dimension, PROF.collection);
             var prop = Util.getObject(store,dimension, PROF.collectionProperty);
             var inv = Util.getObject(store,dimension, PROF.inverseCollectionProperty);
+            var overrides = Util.getObject(store, dimension, PROF.overrides);
+            var profile = Util.getObject(store, dimension, PROF.specifiedBy);
 
             return {
                 url: dimension,
