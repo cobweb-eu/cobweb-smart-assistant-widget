@@ -36,14 +36,30 @@ var COBWEB = function () {
             if(!details.collection)
                 continue;
 
-            var req = Util.getElement('div');
+            var req = Util.getElement('div' , 'requirement');
             var lab = Util.getElement('span', 'requirement');
+            var button = Util.getElement('button');
+            var info = Util.getElement('div', 'info');
             var content = Util.getElement('div', 'requirement-body');
 
+            button.html("Inheritance Info");
+            button.click((function() {
+                var info_control = info;
+                return function() {
+                    info_control.toggle();
+                };
+            })());
+
             req.append(lab);
+            lab.html(details.label);
+            if(details.overrides != null) {
+                Util.buildInheritanceTree(store, details.overrides, info);
+                req.append(info);
+                info.hide();
+                lab.append(button);
+            }
             req.append(content);
 
-            lab.html(details.label);
 
             var container = COBWEB_SKOS.loadCollection(content, details.collection, details);
             details.contents = container;

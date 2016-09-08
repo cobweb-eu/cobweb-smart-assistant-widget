@@ -32,6 +32,20 @@ var DBO = append('http://dbpedia.org/ontology/');
 DBO.Plant = DBO('Plant');
 
 var Util = {
+        buildInheritanceTree : function(store, url, info) {
+            var details = Util.extractDimension(store, url);
+            var parent = Util.getLabel(store, details.profile);
+
+            var div = Util.getElement("div", "inheritance");
+
+            div.append("Specialises Dimension '" + details.label + "'<br />");
+            div.append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;required by '" + parent + "'<br />");
+
+            if(details.overrides != null) {
+                Util.buildInheritanceTree(store, details.overrides, div);
+            }
+            info.append(div);
+        },
         getProfileRequirements : function(store, profile) {
             var requirements = [];
             var matches = store.find(profile, PROF.dimBinding, null);
@@ -70,7 +84,9 @@ var Util = {
                 range : range,
                 collection : collection,
                 property : prop,
-                inverse : inv
+                inverse : inv,
+                overrides: overrides,
+                profile: profile
             };
         },
         getObject : function(store, subject, property) {
