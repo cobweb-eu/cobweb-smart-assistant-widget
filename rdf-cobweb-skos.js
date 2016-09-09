@@ -45,7 +45,6 @@ var COBWEB_SKOS = function () {
 
                     element.html(narrow);
                     element.click(function() {
-                        log.html(narrow);
                         console.log('Narrowing down collection', narrow);
                         loadCollection(skos_content, narrow, settings, object);
                     });
