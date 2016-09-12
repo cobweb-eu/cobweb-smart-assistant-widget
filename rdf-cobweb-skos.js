@@ -32,10 +32,10 @@ var COBWEB_SKOS = function () {
 
             var narrower = Util.getNarrower(graph);
 
-            var title = Util.getElement('div', 'skos-title');
-            title.html(object.current.label);
+            var title = Util.getElement('span', 'skos-title');
+            title.html('Collection: ' + object.current.label);
             var narrowerBits = Util.getElement('div', 'narrower-group');
-            var collectionBits = Util.getElement('div', 'collection-bits');
+            var collectionBits = Util.getElement('ul', 'collection-bits');
 
             // Load narrower type.
             for(var narr = 0; narr < narrower.length; narr++) {
@@ -76,10 +76,11 @@ var COBWEB_SKOS = function () {
             // Load labels of actual values. - identified by
             if(settings) {
                 var collection = Util.getCollection(graph, settings);
+
                 for(var j = 0; j< collection.length; j++) {
                     (function() {
                         var item = {};
-                        var display = Util.getElement('div','item');
+                        var display = Util.getElement('li','item');
 
                         item.url = collection[j];
                         item.type = settings.range;

@@ -22,7 +22,10 @@ var COBWEB = function () {
         data = profile;
         control.complete.show();
 
-        control.requirements.html("Profile: " + profile.label + "");
+        control.requirements.html("Profile: ");
+        var title = Util.getElement('span', 'title');
+        title.html(profile.label);
+        control.requirements.append(title);
         control.requirements.append( "<br />" );
 
         if(profile.requirements.length == 0) {
@@ -228,7 +231,7 @@ var COBWEB = function () {
         var inputspan = Util.getElement('div', 'profile');
         var input = Util.getElement('input');
         var button = Util.getElement('button');
-        button.html('Load Profile(s)');
+        button.html('Load Additional Profile(s)');
         inputspan.append(input);
         inputspan.append(button);
         button.click(function() {
@@ -253,12 +256,11 @@ var COBWEB = function () {
         control.requirements = requirements;
         control.error = error;
 
-        control.base.append(inputspan);
-        control.base.append($(document.createElement('hr')));
+        control.base.append(Util.getElement('span','title').html('Simple Profile Browser'));
         control.base.append(profiles);
-        control.base.append($(document.createElement('hr')));
+        control.base.append(inputspan);
+        control.base.append(Util.getElement('hr'));
         control.base.append(requirements);
-        control.base.append($(document.createElement('hr')));
         control.base.append(complete);
         control.base.append(error);
 
