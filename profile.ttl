@@ -12,11 +12,7 @@
 @prefix time: <http://resources.opengeospatial.org/def/ontology/time/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix om: <https://www.w3.org/ns/sosa#>  .
-
 @prefix gbif: <http://prophet.ucd.ie/ontology/cobweb/skos/gbif#> .
-
-@base <http://prophet.ucd.ie/ontology/cobweb/profiles/prof#> .
-
 @prefix : <http://prophet.ucd.ie/ontology/cobweb/profiles/prof#> .
 
 :cobweb_invasive a prof:Profile ;
@@ -77,7 +73,7 @@
 :dim_dbpedia a prof:DimensionBinding ;
   rdfs:label "LOD Species Code" ;
   
-  prof:specifiedBy :dbpedia
+  prof:specifiedBy :dbpedia ;
 
   prof:collection <http://dbpedia.org/resource/Category:Flora_of_Europe> ;
   prof:inverseCollectionProperty <http://purl.org/dc/terms/subject> ;
