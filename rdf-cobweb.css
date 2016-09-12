@@ -1,0 +1,45 @@
+.cobweb-assistant { 
+    border : 1px solid black;
+}
+
+.error {
+    background-color: red;
+}
+
+.narrower-group {
+    padding-left: 2em;
+    border: 1px solid white;
+}
+
+.collection-bits {
+    margin-left: 1em;
+    border: 1px solid black;
+    height: 10em;
+    overflow-y: scroll;
+}
+
+.requirement-body {
+    padding-left: 1em;
+    border: 1px solid red;
+}
+
+.info {
+    margin-left: 1em;
+}
+
+div.info {
+    border: 1px solid grey;
+}
+
+.parents .parent,
+.requirements .requirement {
+    padding-left: 1em;
+}
+
+.requirement button {
+    margin-left: 1em;
+}
+
+.inheritance {
+    padding-left: 0.5em;
+}
