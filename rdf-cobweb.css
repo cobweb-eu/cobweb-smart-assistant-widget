@@ -27,8 +27,8 @@ div.info {
     padding-left: 1em;
 }
 
-.requirements {
-
+.profiles {
+    margin: 0 0 0 0;
 }
 
 .requirements .requirement {
@@ -42,7 +42,6 @@ div.info {
 }
 
 .requirement-body .collection-bits {
-    //margin-left: 1em;
     height: 10em;
     overflow-y: scroll;
     margin: 0 0 0 0;

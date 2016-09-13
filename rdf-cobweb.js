@@ -73,6 +73,8 @@ var COBWEB = function () {
     var analyse_profiles = function(graph, data) {
         var matches = store.find(null, A, PROF.Profile);
         control.profiles.html("Found " + matches.length + " new Profiles<br />");
+        var ul = Util.getElement('ul', 'profiles');
+        control.profiles.append(ul);
 
         for(var i = 0; i < matches.length; i++) {
             var match = matches[i];
@@ -95,7 +97,7 @@ var COBWEB = function () {
         for (var id in profiles) {
             var profile = profiles[id];
 
-            var prof_div = Util.getElement('div');
+            var prof_div = Util.getElement('li');
             var prof_label = Util.getElement('span', 'profile');
 
             var prof_info = Util.getElement('span', 'info');
@@ -153,7 +155,7 @@ var COBWEB = function () {
                 }
             }
 
-            control.profiles.append(prof_div);
+            ul.append(prof_div);
         }
         if( profiles[graph] ) {
             analyse_profile(profiles[graph]);
