@@ -8,12 +8,12 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix stqb: <http://resources.opengeospatial.org/def/ontology/stqb/> .
-@prefix prof: <http://resources.opengeospatial.org/def/ontology/prof/> .
+@prefix prof: <http://resources.opengeospatial.org/def/ontology/view/> .
 @prefix time: <http://resources.opengeospatial.org/def/ontology/time/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix om: <https://www.w3.org/ns/sosa#>  .
 @prefix gbif: <http://prophet.ucd.ie/ontology/cobweb/skos/gbif#> .
-@prefix : <http://prophet.ucd.ie/ontology/cobweb/profiles/prof#> .
+@prefix : <http://prophet.ucd.ie/ontology/cobweb/profiles/view#> .
 
 :cobweb_invasive a prof:Profile ;
   rdfs:label "COBWEB Invasive Species Profile (GBIF)"@en ;

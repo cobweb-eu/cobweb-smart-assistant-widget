@@ -17,7 +17,7 @@ RDFS.label = RDFS('label');
 RDFS.range = RDFS('range');
 RDFS.subClassOf = RDFS('subClassOf');
 
-var PROF = append('http://resources.opengeospatial.org/def/ontology/prof/');
+var PROF = append('http://resources.opengeospatial.org/def/ontology/view/');
 PROF.Profile = PROF('Profile');
 PROF.dimBinding = PROF('dimBinding');
 
